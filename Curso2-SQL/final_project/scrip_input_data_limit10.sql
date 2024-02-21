@@ -10,7 +10,7 @@ INSERT INTO public.comp (comp)
 INSERT INTO machine 
 	SELECT machineid, age, id 
 	FROM machine_temp mt
-	JOIN machine_model mm ON mm.model = mt.model LIMIT 10;
+	JOIN machine_model mm ON mm.model = mt.model ORDER BY machineid LIMIT 10;
 
 
 INSERT INTO error_type (error_name) 
@@ -25,7 +25,7 @@ INSERT INTO error_log (date, error_id, machine_id)
 		
 
 INSERT INTO telemetry (date, machine_id, volt, rotate, pressure,vibration)
-	SELECT * FROM telemetry_temp
+	SELECT * FROM telemetry_temp LIMIT 10;
 	
 	
 INSERT INTO maint (date, machine_id, comp_id)
@@ -37,4 +37,4 @@ INSERT INTO maint (date, machine_id, comp_id)
 INSERT INTO failure (date, machine_id, comp_id)	
 	SELECT datetime, machineid, id
 	FROM failure_temp ft
-	JOIN comp c ON c.comp = ft.failure LIMIT 10;
+	JOIN comp c ON c.comp = ft.failure ORDER BY machineid, datetime LIMIT 10;
